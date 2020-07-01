@@ -24,7 +24,7 @@ def create_member(request):
         if form.is_valid():
             new_member = Member(first_name=str.lower(request.POST['first_name']), last_name=str.lower(request.POST['last_name']))
             new_member.save()
-            return HttpResponseRedirect('/members/%s/%s' % (new_member.first_name, new_member.last_name))
+            return HttpResponseRedirect('/members/')
     else:
         form = NewMemberForm()
 
@@ -40,7 +40,7 @@ def signed_out(request):
 
 
 def member_list(request):
-    return render(request, 'members/members_all.html')
+    return render(request, 'members/members_all.html', {'members': Member.objects.order_by('first_name')})
 
 
 def members_here(request):

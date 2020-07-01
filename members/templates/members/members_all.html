@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>All Members</title>
 </head>
 <body>
-
+    <h1>All Members</h1>
+    <ul>
+        {% for member in members %}
+            <li>{{ member }}: {{ member.num_hours }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
