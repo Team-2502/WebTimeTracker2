@@ -1,7 +1,8 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 
 from .models import Member
+from .forms import NewMemberForm
 
 
 def index(request):
@@ -9,20 +10,24 @@ def index(request):
 
 
 def member_detail(request, first_name, last_name):
-    if request.method == "POST":
-        new_member = Member(first_name=str.lower(request.POST['first_name']), last_name=str.lower(request.POST['last_name']))
-        new_member.save()
-        return render(request, 'members/member_detail.html', {'member': new_member})
-    else:
-        try:
-            member = get_object_or_404(Member, first_name=first_name, last_name=last_name)
-        except Member.DoesNotExist:
-            raise Http404("Team member does not exist")
-        return render(request, 'members/member_detail.html', {'member': member})
+    try:
+        member = get_object_or_404(Member, first_name=first_name, last_name=last_name)
+    except Member.DoesNotExist:
+        raise Http404("Team member does not exist")
+    return render(request, 'members/member_detail.html', {'member': member})
 
 
 def create_member(request):
-    return render(request, 'members/member_new.html')
+    if request.method == "POST":
+        form = NewMemberForm(request.POST)
+        if form.is_valid():
+            new_member = Member(first_name=str.lower(request.POST['first_name']), last_name=str.lower(request.POST['last_name']))
+            new_member.save()
+            return HttpResponseRedirect('/members/%s/%s' % (new_member.first_name, new_member.last_name))
+    else:
+        form = NewMemberForm()
+
+    return render(request, 'members/member_new.html', {'form': form})
 
 
 def signed_in(request):

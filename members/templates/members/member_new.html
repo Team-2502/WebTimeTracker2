@@ -5,12 +5,9 @@
     <title>Create Member</title>
 </head>
 <body>
-    <form action="{% url 'member_detail' 'new' 'user' %}" method="post">
+    <form action="{% url 'new_member'%}" method="post">
         {% csrf_token %}
-        <label for="first_name">First Name: </label><br>
-        <input id="first_name" type="text" name="first_name" value=""><br><br>
-        <label for="last_name">Last Name: </label><br>
-        <input id="last_name" type="text" name="last_name" value=""><br><br>
+        {{ form }}
         <input type="submit" value="Create">
     </form>
 </body>
