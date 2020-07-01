@@ -8,4 +8,4 @@ class Member(models.Model):
     logged_in = models.BooleanField(default=False)
 
     def __str__(self):
-        return str.capitalize(self.first_name) + " " + str.upper(self.last_name[0]) + ": " + str(self.num_hours)
+        return str.capitalize(self.first_name) + " " + str.upper(self.last_name[0])

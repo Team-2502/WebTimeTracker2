@@ -6,7 +6,8 @@ from .forms import NewMemberForm
 
 
 def index(request):
-    return render(request, 'members/index.html')
+    context = {'members': Member.objects.filter(logged_in=False).order_by('first_name'), 'members_signed_in': Member.objects.filter(logged_in=True)}
+    return render(request, 'members/index.html', context)
 
 
 def member_detail(request, first_name, last_name):

@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Home</title>
 </head>
 <body>
+    <header>
+        <h1>Team 2502 Time Tracker</h1>
+    </header>
+
+    <form action="{% url 'signed_in'%}" method="post">
+        {% csrf_token %}
+        <select name="login_select" id="login_select">
+            {% for member in members %}
+            <option value=member>{{ member }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Sign In">
+    </form>
+
+    <br><br>
+
+    {% if members_signed_in %}
+
+        <form action="{% url 'signed_out'%}" method="post">
+            {% csrf_token %}
+            <select name="logout_select" id="logout_select">
+                {% for member in members_signed_in %}
+                <option value=member>{{ member }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="submit" value="Sign Out">
+        </form>
+
+    {% else %}
+        <h2>No one signed in!</h2>
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'new_member' %}">New Member</a><br>
+
+    <a href="{% url 'view_all' %}">View All Members</a>
 
 </body>
 </html>
