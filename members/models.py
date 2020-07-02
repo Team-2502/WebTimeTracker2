@@ -10,4 +10,4 @@ class Member(models.Model):
     sign_in_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return str.capitalize(self.first_name) + " " + str.upper(self.last_name[0])
+        return str.capitalize(self.first_name) + " " + str.capitalize(self.last_name)

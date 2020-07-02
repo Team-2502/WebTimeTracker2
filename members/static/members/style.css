@@ -1,0 +1,19 @@
+body {
+    background-color: #EEEEEE;
+    color: #444;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 650px;
+    padding: 0 10px;
+    text-align: center;
+}
+
+a{
+    color: #444;
+}
+a:visited{color: #444}
+
+select {
+    width: 50%
+}
