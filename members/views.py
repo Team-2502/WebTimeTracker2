@@ -1,10 +1,11 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 
 from datetime import datetime
 from pytz import timezone
 from decimal import Decimal
+import csv
 
 from .models import Member
 from .forms import NewMemberForm
@@ -64,3 +65,14 @@ def member_list(request):
 
 def members_here(request):
     return
+
+
+def create_export(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="member_hours.csv"'
+
+    writer = csv.writer(response)
+    for member in Member.objects.order_by('first_name'):
+        writer.writerow([member.first_name, member.last_name, member.num_hours])
+
+    return response
