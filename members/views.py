@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Ht
 from django.utils import timezone
 
 from datetime import datetime
-from pytz import timezone
+import pytz
 from decimal import Decimal
 import csv
 
@@ -49,7 +49,7 @@ def signed_out(request):
     member = Member.objects.get(id=request.POST['logout_select'])
     member.logged_in = False
 
-    tz = timezone('America/Chicago')
+    tz = pytz.timezone('America/Chicago')
     current_time = datetime.now(tz=tz)
     diff = current_time - member.sign_in_time
 
@@ -64,7 +64,7 @@ def member_list(request):
 
 
 def members_here(request):
-    return
+    return render(request, 'members/members_here.html', {'members': Member.objects.filter(logged_in=True).order_by('first_name')})
 
 
 def create_export(request):

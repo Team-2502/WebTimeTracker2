@@ -17,4 +17,6 @@ urlpatterns = [
     path('view_all', views.member_list, name='view_all'),
     # /members/export
     path('export', views.create_export, name='export'),
+    # /members/at_the_room
+    path('at_the_room', views.members_here, name='at_the_room'),
 ]
