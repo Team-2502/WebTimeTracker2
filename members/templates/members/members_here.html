@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{%  static 'members/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla">
+    <link rel="shortcut icon" type="image/png" href="{% static 'members/images/talon-logo.png' %}"/>
     <meta charset="UTF-8">
-    <title>In the Room</title>
+    <title>Time Tracker</title>
 </head>
 <body>
-    <h1>In the Room</h1>
-    <ul>
+    <header class="center">
+        <h1>Team 2502 Time Tracker</h1>
+        <h2>Members Signed In</h2>
+    </header>
+    <table class="members_here">
         {% for member in members %}
-            <li>{{ member }}</li>
+            <tr>
+                <td>{{ member }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 </body>
 </html>

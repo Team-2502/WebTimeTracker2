@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla">
     <link rel="shortcut icon" type="image/png" href="{% static 'members/images/talon-logo.png' %}"/>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Time Tracker</title>
 </head>
 <body style="font-family: 'Karla', serif;">
     {% load static %}
@@ -17,16 +17,22 @@
 
     <br>
 
-    <form action="{% url 'signed_in'%}" method="post" style="text-align: center">
-        {% csrf_token %}
-        <select name="login_select" id="login_select">
-            {% for member in members %}
-            <option value={{ member.id }}>{{ member }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <input type="submit" value="Sign In">
-    </form>
+    {% if members %}
+
+        <form action="{% url 'signed_in'%}" method="post" style="text-align: center">
+            {% csrf_token %}
+            <select name="login_select" id="login_select">
+                {% for member in members %}
+                <option value={{ member.id }}>{{ member }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="submit" value="Sign In">
+        </form>
+
+    {% else %}
+        <h2 style="text-align: center">Everyone signed in!</h2>
+    {% endif %}
 
     <br>
 
@@ -49,10 +55,10 @@
 
     <br>
 
-    <a href="{% url 'new_member' %}" style="text-align: center" >New Member</a><br><br>
+    <a href="{% url 'new_member' %}" style="text-align: center" >New Team Member</a><br><br>
 
-    <a href="{% url 'view_all' %}" style="text-align: center" >View All Members</a><br>
-    <a style="text-align: center" href="{% url 'at_the_room' %}">View Members Present</a><br><br>
+    <a href="{% url 'view_all' %}" style="text-align: center" >View All Team Members</a><br>
+    <a style="text-align: center" href="{% url 'at_the_room' %}">View Team Members Present</a><br><br>
 
     <a style="text-align: center" href="{% url 'export' %}">Export CSV</a><br>
 

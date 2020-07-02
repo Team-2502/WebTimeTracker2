@@ -42,7 +42,7 @@ def signed_in(request):
     member.logged_in = True
     member.sign_in_time = timezone.now()
     member.save()
-    return render(request, 'members/signed_in.html')
+    return HttpResponseRedirect('/members/')
 
 
 def signed_out(request):
@@ -56,11 +56,11 @@ def signed_out(request):
     member.num_hours += Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
     member.save()
 
-    return render(request, 'members/signed_out.html')
+    return HttpResponseRedirect('/members/')
 
 
 def member_list(request):
-    return render(request, 'members/members_all.html', {'members': Member.objects.order_by('first_name')})
+    return render(request, 'members/members_all.html', {'members': Member.objects.order_by('-num_hours')})
 
 
 def members_here(request):
