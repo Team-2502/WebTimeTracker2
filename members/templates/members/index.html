@@ -13,7 +13,7 @@
         {% csrf_token %}
         <select name="login_select" id="login_select">
             {% for member in members %}
-            <option value=member>{{ member }}</option>
+            <option value={{ member.id }}>{{ member }}</option>
             {% endfor %}
         </select>
         <br>
@@ -28,7 +28,7 @@
             {% csrf_token %}
             <select name="logout_select" id="logout_select">
                 {% for member in members_signed_in %}
-                <option value=member>{{ member }}</option>
+                <option value={{ member.id }}>{{ member }}</option>
                 {% endfor %}
             </select>
             <br>

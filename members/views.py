@@ -1,5 +1,10 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.utils import timezone
+
+from datetime import datetime
+from pytz import timezone
+from decimal import Decimal
 
 from .models import Member
 from .forms import NewMemberForm
@@ -32,11 +37,25 @@ def create_member(request):
 
 
 def signed_in(request):
-    return
+    member = Member.objects.get(id=request.POST['login_select'])
+    member.logged_in = True
+    member.sign_in_time = timezone.now()
+    member.save()
+    return render(request, 'members/signed_in.html')
 
 
 def signed_out(request):
-    return
+    member = Member.objects.get(id=request.POST['logout_select'])
+    member.logged_in = False
+
+    tz = timezone('America/Chicago')
+    current_time = datetime.now(tz=tz)
+    diff = current_time - member.sign_in_time
+
+    member.num_hours += Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
+    member.save()
+
+    return render(request, 'members/signed_out.html')
 
 
 def member_list(request):
