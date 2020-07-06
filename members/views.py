@@ -3,7 +3,6 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Ht
 from django.contrib import messages
 
 from datetime import datetime
-import pytz
 from decimal import Decimal
 import csv
 from string import capwords
@@ -43,6 +42,7 @@ def signed_in(request):
     member.logged_in = True
     member.sign_in_time = datetime.now()
     member.save()
+
     messages.success(request, "%s is now signed in" % member)
     messages.success(request, "The time is %s" % datetime.now().strftime(" %I:%M %p").replace(' 0', ''))
     return HttpResponseRedirect('/members/')
@@ -52,17 +52,13 @@ def signed_out(request):
     member = Member.objects.get(id=request.POST['logout_select'])
     member.logged_in = False
 
-    # The datetime is made tz aware when it is stored in PostgreSQL so the new datetime needs to be made aware as well
-    tz = pytz.timezone('America/Chicago')
-    current_time = datetime.now(tz=tz)
-    diff = current_time - member.sign_in_time
-
+    diff = datetime.now() - member.sign_in_time
     added_hours = Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
     member.num_hours += added_hours
-    messages.success(request, "%s is now signed out" % member)
-    messages.success(request, "Signed in for %.2f hours" % added_hours)
     member.save()
 
+    messages.success(request, "%s is now signed out" % member)
+    messages.success(request, "Signed in for %.2f hours" % added_hours)
     return HttpResponseRedirect('/members/')
 
 
