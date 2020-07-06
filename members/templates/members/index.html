@@ -19,6 +19,12 @@
 
     <br>
 
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: forestgreen">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
     {% if members %}
 
         <form action="{% url 'signed_in'%}" method="post" style="text-align: center">

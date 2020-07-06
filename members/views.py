@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, HttpResponse
-from django.utils import timezone
+from django.contrib import messages
 
 from datetime import datetime
 import pytz
@@ -40,8 +40,10 @@ def create_member(request):
 def signed_in(request):
     member = Member.objects.get(id=request.POST['login_select'])
     member.logged_in = True
-    member.sign_in_time = timezone.now()
+    member.sign_in_time = datetime.now()
     member.save()
+    messages.success(request, "%s is now signed in" % member)
+    messages.success(request, "The time is now %s" % datetime.now().strftime(" %I:%M %p").replace(' 0', ''))
     return HttpResponseRedirect('/members/')
 
 
@@ -49,6 +51,7 @@ def signed_out(request):
     member = Member.objects.get(id=request.POST['logout_select'])
     member.logged_in = False
 
+    # The datetime is made tz aware when it is stored in PostgreSQL so the new datetime needs to be made aware as well
     tz = pytz.timezone('America/Chicago')
     current_time = datetime.now(tz=tz)
     diff = current_time - member.sign_in_time
