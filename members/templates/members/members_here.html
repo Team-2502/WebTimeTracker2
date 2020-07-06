@@ -14,15 +14,20 @@
         <h1>Team 2502</h1>
         <h1>Time Tracker</h1>
         <br>
-        <h2>Members Signed In</h2>
     </header>
-    <table class="members_here">
-        {% for member in members %}
-            <tr>
-                <td>{{ member }}</td>
-                <td>{{ member.team_role }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% if members %}
+        <h2>Members Signed In</h2>
+        <table class="members_here">
+            {% for member in members %}
+                <tr>
+                    <td>{{ member }}</td>
+                    <td style="min-width:100px">{{ member.team_role }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2 style="text-align: center">No one is signed in :(</h2>
+    {% endif %}
+
 </body>
 </html>
