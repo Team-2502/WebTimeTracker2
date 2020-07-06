@@ -9,13 +9,17 @@ body {
     text-align: center;
 }
 
+header {
+        line-height: 0.8;
+}
+
 a{
     color: #444;
 }
 a:visited{color: #444}
 
 select {
-    width: 50%
+    width: 40%
 }
 
 table, th, td {
@@ -45,4 +49,10 @@ ul{
     margin-right: auto;
     border-collapse: collapse;
     text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+    select {
+        width: 75%
+    }
 }
