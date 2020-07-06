@@ -43,7 +43,7 @@ def signed_in(request):
     member.sign_in_time = datetime.now()
     member.save()
     messages.success(request, "%s is now signed in" % member)
-    messages.success(request, "The time is now %s" % datetime.now().strftime(" %I:%M %p").replace(' 0', ''))
+    messages.success(request, "The time is %s" % datetime.now().strftime(" %I:%M %p").replace(' 0', ''))
     return HttpResponseRedirect('/members/')
 
 
@@ -56,7 +56,10 @@ def signed_out(request):
     current_time = datetime.now(tz=tz)
     diff = current_time - member.sign_in_time
 
-    member.num_hours += Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
+    added_hours = Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
+    member.num_hours += added_hours
+    messages.success(request, "%s is now signed out" % member)
+    messages.success(request, "Signed in for %.2f hours" % added_hours)
     member.save()
 
     return HttpResponseRedirect('/members/')
