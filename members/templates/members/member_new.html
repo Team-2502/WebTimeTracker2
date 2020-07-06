@@ -21,6 +21,7 @@
     <form action="{% url 'new_member'%}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <p>Add role if lead or captain, <br> otherwise leave blank</p>
         <input type="submit" value="Create">
     </form>
 </body>

@@ -6,6 +6,7 @@ from datetime import datetime
 import pytz
 from decimal import Decimal
 import csv
+from string import capwords
 
 from .models import Member
 from .forms import NewMemberForm
@@ -28,7 +29,7 @@ def create_member(request):
     if request.method == "POST":
         form = NewMemberForm(request.POST)
         if form.is_valid():
-            new_member = Member(first_name=str.lower(request.POST['first_name']), last_name=str.lower(request.POST['last_name']))
+            new_member = Member(first_name=str.capitalize(request.POST['first_name']), last_name=str.capitalize(request.POST['last_name']), team_role=capwords((request.POST['team_role'])))
             new_member.save()
             return HttpResponseRedirect('/members/')
     else:
