@@ -7,7 +7,7 @@ from decimal import Decimal
 import csv
 from string import capwords
 
-from .models import Member
+from .models import Member, Appearance
 from .forms import NewMemberForm
 
 
@@ -56,6 +56,9 @@ def signed_out(request):
     added_hours = Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
     member.num_hours += added_hours
     member.save()
+
+    appearance = Appearance(date=member.sign_in_time.date(), length=added_hours, start_time=member.sign_in_time.time(), end_time=datetime.now().time(), member=member)
+    appearance.save()
 
     messages.success(request, "%s is now signed out" % member)
     messages.success(request, "Signed in for %.2f hours" % added_hours)

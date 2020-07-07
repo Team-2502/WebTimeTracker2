@@ -20,7 +20,7 @@
         <table class="members_here">
             {% for member in members %}
                 <tr>
-                    <td>{{ member }}</td>
+                    <td> <a href="{% url 'member_detail' member.first_name member.last_name %}">{{ member }}</a> </td>
                     <td style="min-width:100px">{{ member.team_role }}</td>
                 </tr>
             {% endfor %}

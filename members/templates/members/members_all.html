@@ -22,7 +22,7 @@
         <th>Hours</th>
         {% for member in members %}
             <tr>
-                <td>{{ member }}</td>
+                <td> <a href="{% url 'member_detail' member.first_name member.last_name %}">{{ member }}</a> </td>
                 <td>{{ member.num_hours }}</td>
             </tr>
         {% endfor %}
