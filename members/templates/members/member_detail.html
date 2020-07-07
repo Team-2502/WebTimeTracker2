@@ -16,9 +16,11 @@
         <h1>Time Tracker</h1>
         <br>
         <h2>{{ member }}</h2>
+        <h2>Hours: {{ member.num_hours }}</h2>
     </header>
 
     <table>
+    <caption>Times Signed In</caption>
         {% for appearance in member.appearance_set.all reversed %}
             <tr>
                 <td> {{ appearance}} </td>
