@@ -19,9 +19,10 @@ def index(request):
 def member_detail(request, first_name, last_name):
     try:
         member = get_object_or_404(Member, first_name=first_name, last_name=last_name)
+        rank = list(Member.objects.all().order_by('-num_hours')).index(member) + 1
     except Member.DoesNotExist:
         raise Http404("Team member does not exist")
-    return render(request, 'members/member_detail.html', {'member': member})
+    return render(request, 'members/member_detail.html', {'member': member, 'rank': rank})
 
 
 def create_member(request):
