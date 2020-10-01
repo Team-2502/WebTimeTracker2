@@ -12,10 +12,12 @@ Features basic sign in and out functionality, ability to see the hours for all t
 * `brew tap heroku/brew && brew install heroku`
 * `brew services start postgresql`
 * Login to Heroku using `heroku login`
-* Enter psql using `psql postgres`
+* Add a Heroku Git remote by running `heroku git:remote -a time-tracker-2502` in the project's local directory
+* Enter psql using `psql postgres` (you can quit using `\q`)
 * Create a password for your default user using `\password [your-username]` and quit postgres using `\q`
-* Create a local PostgreSQL database using `createdb [your-database]` or follow instructions [here](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) to connect to production database
-* Create local_settings.py with your local PostgreSQL database settings 
+* Create a local PostgreSQL database using `CREATE DATABASE [your-database];` or follow instructions [here](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) to connect to production database
+* Ask me for the secret key
+* Create local_settings.py with your local PostgreSQL database settings and the secret key I gave you
 * Create a Python virtual environment and run `pip install -r requirements.txt`
 * If you are getting errors with psycopg2 you may need to run `pip install psycopg2-binary`
 
@@ -23,6 +25,7 @@ Features basic sign in and out functionality, ability to see the hours for all t
 Your local_settings.py file should like this if using a local instance of PostgreSQL 
 ```
 DEBUG = True
+SECRET_KEY = '[secret-key]'
 
 DATABASES = {
     'default': {
