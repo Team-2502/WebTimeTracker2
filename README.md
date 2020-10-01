@@ -8,7 +8,8 @@ Features basic sign in and out functionality, ability to see the hours for all t
 
 ## Development Setup for school issued MacBooks
 * See "Installing Homebrew" [here](https://team-2502.github.io/programming/Homebrew.html)
-* `brew install python heroku postgresql`
+* `brew install python postgresql`
+* `brew tap heroku/brew && brew install heroku`
 * `brew services start postgresql`
 * Login to Heroku using `heroku login`
 * Enter psql using `psql postgres`
