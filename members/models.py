@@ -26,5 +26,9 @@ class Appearance(models.Model):
     activity = models.CharField(max_length=50, default='')
 
     def __str__(self):
+        # Feb 23: 3:05 PM - 5:06 PM "Programming Meeting"
         # Feb 23: 3:05 PM - 5:06 PM
-        return self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p")
+        if self.activity is '':
+            return self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p")
+        else:
+            return self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p") + " \"" + self.activity + "\""
