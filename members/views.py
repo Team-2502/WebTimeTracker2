@@ -86,7 +86,8 @@ def create_export(request):
     response['Content-Disposition'] = 'attachment; filename="member_hours.csv"'
 
     writer = csv.writer(response)
+    writer.writerow(['First', 'Last', 'Total', 'Virtual', 'In Person'])
     for member in Member.objects.order_by('first_name'):
-        writer.writerow([member.first_name, member.last_name, member.num_hours])
+        writer.writerow([member.first_name, member.last_name, member.num_hours, member.num_hours_virtual, member.num_hours_in_person])
 
     return response
