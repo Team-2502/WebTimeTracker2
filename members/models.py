@@ -27,10 +27,5 @@ class Appearance(models.Model):
     location = models.CharField(max_length=10, default='virtual')
 
     def __str__(self):
-        # Feb 23: 3:05 PM - 5:06 PM "Programming Meeting"
         # Feb 23: 3:05 PM - 5:06 PM
-        string = ""
-        string += self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p")
-        if self.activity != '':
-            string += " \"" + self.activity + "\""
-        return string
+        return self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p")

@@ -27,9 +27,9 @@
         {% for appearance in member.appearance_set.all reversed %}
             <tr>
                 {% if appearance.location == "virtual" %}
-                    <td> {{ appearance}} </td>
+                    <td> {{ appearance}}  <br> {{ appearance.activity }}</td>
                 {% elif appearance.location == "in_person" %}
-                    <td style="color: darkred"> {{ appearance}} </td>
+                    <td style="color: darkred"> {{ appearance}} <br> {{ appearance.activity }}</td>
                 {% endif %}
             </tr>
         {% endfor %}
