@@ -15,8 +15,10 @@
         <h1>Team 2502</h1>
         <h1>Time Tracker</h1>
         <br>
-        <h2>{{ member }}</h2>
-        <h2>Hours: {{ member.num_hours }}</h2>
+        <h2>{{ member }}</h2><br>
+        <h2>Total Hours: {{ member.num_hours }}</h2>
+        <h2>Virtual Hours: {{ member.num_hours_virtual }}</h2>
+        <h2>In Person Hours: {{ member.num_hours_in_person }}</h2>
         <h2>Rank #{{ rank }}</h2>
     </header>
 
