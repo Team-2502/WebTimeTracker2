@@ -31,7 +31,7 @@ def create_member(request):
         if form.is_valid():
             new_member = Member(first_name=str.capitalize(request.POST['first_name']), last_name=str.capitalize(request.POST['last_name']), team_role=capwords((request.POST['team_role'])))
             new_member.save()
-            return HttpResponseRedirect('/members/')
+            return HttpResponseRedirect('/')
     else:
         form = NewMemberForm()
 
@@ -46,7 +46,7 @@ def signed_in(request):
 
     messages.success(request, "%s is now signed in" % member)
     messages.success(request, "The time is %s" % datetime.now().strftime(" %I:%M %p").replace(' 0', ''))
-    return HttpResponseRedirect('/members/')
+    return HttpResponseRedirect('/')
 
 
 def signed_out(request):
@@ -63,7 +63,7 @@ def signed_out(request):
 
     messages.success(request, "%s is now signed out" % member)
     messages.success(request, "Signed in for %.2f hours" % added_hours)
-    return HttpResponseRedirect('/members/')
+    return HttpResponseRedirect('/')
 
 
 def member_list(request):
