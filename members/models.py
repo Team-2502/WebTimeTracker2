@@ -24,11 +24,13 @@ class Appearance(models.Model):
     end_time = models.TimeField()
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     activity = models.CharField(max_length=50, default='')
+    location = models.CharField(max_length=10, default='virtual')
 
     def __str__(self):
         # Feb 23: 3:05 PM - 5:06 PM "Programming Meeting"
         # Feb 23: 3:05 PM - 5:06 PM
-        if self.activity is '':
-            return self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p")
-        else:
-            return self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p") + " \"" + self.activity + "\""
+        string = ""
+        string += self.date.strftime("%b %-d") + ": " + self.start_time.strftime("%-I:%M %p") + " - " + self.end_time.strftime("%-I:%M %p")
+        if self.activity != '':
+            string += " \"" + self.activity + "\""
+        return string

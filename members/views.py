@@ -63,7 +63,9 @@ def signed_out(request):
         member.num_hours_in_person += added_hours
     member.save()
 
-    appearance = Appearance(date=member.sign_in_time.date(), length=added_hours, start_time=member.sign_in_time.time(), end_time=datetime.now().time(), member=member, activity=request.POST['activity'])
+    appearance = Appearance(date=member.sign_in_time.date(), length=added_hours, start_time=member.sign_in_time.time(),
+                            end_time=datetime.now().time(), member=member, activity=request.POST['activity'],
+                            location=request.POST['location'])
     appearance.save()
 
     messages.success(request, "%s is now signed out" % member)

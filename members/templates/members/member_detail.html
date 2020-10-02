@@ -26,7 +26,11 @@
     <caption>Times Signed In</caption>
         {% for appearance in member.appearance_set.all reversed %}
             <tr>
-                <td> {{ appearance}} </td>
+                {% if appearance.location == "virtual" %}
+                    <td> {{ appearance}} </td>
+                {% elif appearance.location == "in_person" %}
+                    <td style="color: darkred"> {{ appearance}} </td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
