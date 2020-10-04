@@ -20,10 +20,11 @@ def index(request):
 
 def member_tracing(request, first_name, last_name, date, start_time, end_time):
     member = get_object_or_404(Member, first_name=first_name, last_name=last_name)
+    appearance = get_object_or_404(Appearance, date=date, start_time=start_time, end_time=end_time, member=member)
     appearances1 = Appearance.objects.all().filter(date=date, location='in_person')
     appearances2 = appearances1.exclude(Q(end_time__lt=start_time) | Q(start_time__gt=end_time))
     appearances = list(appearances2.exclude(member=member))
-    return render(request, 'members/member_tracing.html', {'member': member, 'appearances': appearances})
+    return render(request, 'members/member_tracing.html', {'member': member, 'appearance': appearance, 'appearances': appearances})
 
 
 def member_detail(request, first_name, last_name):
