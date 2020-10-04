@@ -50,15 +50,22 @@ def signed_in(request):
 
 
 def signed_out(request):
+    print(request.POST)
     member = Member.objects.get(id=request.POST['logout_select'])
     member.logged_in = False
 
     diff = datetime.now() - member.sign_in_time
     added_hours = Decimal(diff.total_seconds() / 3600).quantize(Decimal('1.00'))
     member.num_hours += added_hours
+    if request.POST['location'] == 'virtual':
+        member.num_hours_virtual += added_hours
+    elif request.POST['location'] == 'in_person':
+        member.num_hours_in_person += added_hours
     member.save()
 
-    appearance = Appearance(date=member.sign_in_time.date(), length=added_hours, start_time=member.sign_in_time.time(), end_time=datetime.now().time(), member=member)
+    appearance = Appearance(date=member.sign_in_time.date(), length=added_hours, start_time=member.sign_in_time.time(),
+                            end_time=datetime.now().time(), member=member, activity=request.POST['activity'],
+                            location=request.POST['location'])
     appearance.save()
 
     messages.success(request, "%s is now signed out" % member)
@@ -79,7 +86,8 @@ def create_export(request):
     response['Content-Disposition'] = 'attachment; filename="member_hours.csv"'
 
     writer = csv.writer(response)
+    writer.writerow(['First', 'Last', 'Total', 'Virtual', 'In Person'])
     for member in Member.objects.order_by('first_name'):
-        writer.writerow([member.first_name, member.last_name, member.num_hours])
+        writer.writerow([member.first_name, member.last_name, member.num_hours, member.num_hours_virtual, member.num_hours_in_person])
 
     return response

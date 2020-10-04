@@ -54,6 +54,15 @@
                 {% endfor %}
             </select>
             <br>
+
+            <input type="radio" id="virtual" name="location" value="virtual" checked>
+            <label for="virtual">Virtual &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <br>
+            <input type="radio" id="in_person" name="location" value="in_person">
+            <label for="in_person">In Person</label>
+            <br>
+            <label for="activity">What did you do?</label>
+            <input name="activity" id="activity" type="text" autocomplete="off" maxlength="50"> <br>
             <input type="submit" value="Sign Out">
         </form>
 
