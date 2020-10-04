@@ -16,21 +16,20 @@
         <h1>Time Tracker</h1>
         <br>
         <h2>{{ member }}</h2><br>
-        <h2>Total Hours: {{ member.num_hours }}</h2>
-        <h2>Virtual Hours: {{ member.num_hours_virtual }}</h2>
-        <h2>In Person Hours: {{ member.num_hours_in_person }}</h2>
-        <h2>Rank #{{ rank }}</h2>
+        <h2> Overlap Times and People</h2>
     </header>
 
     <table>
-    <caption>Times Signed In</caption>
-        {% for appearance in member.appearance_set.all reversed %}
+    <th>Times Signed In</th>\
+    <th>Member</th>
+        {% for appearance in appearances %}
             <tr>
                 {% if appearance.location == "virtual" %}
                     <td> {{ appearance}}  <br> {{ appearance.activity }}</td>
                 {% elif appearance.location == "in_person" %}
-                    <td style="color: darkred"> <a href="{% url 'member_tracing' member.first_name member.last_name appearance.date appearance.start_time appearance.end_time%}">{{ appearance}}</a> <br> {{ appearance.activity }}</td>
+                    <td style="color: darkred"> {{ appearance}} <br> {{ appearance.activity }}</td>
                 {% endif %}
+                <td> <a href="{% url 'member_detail' member.first_name member.last_name %}">{{ appearance.member }}</a> </td>
             </tr>
         {% endfor %}
     </table>

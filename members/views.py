@@ -9,11 +9,21 @@ from string import capwords
 
 from .models import Member, Appearance
 from .forms import NewMemberForm
+from django.db.models import Q
 
 
 def index(request):
-    context = {'members': Member.objects.filter(logged_in=False).order_by('first_name'), 'members_signed_in': Member.objects.filter(logged_in=True)}
+    context = {'members': Member.objects.filter(logged_in=False).order_by('first_name'),
+               'members_signed_in': Member.objects.filter(logged_in=True)}
     return render(request, 'members/index.html', context)
+
+
+def member_tracing(request, first_name, last_name, date, start_time, end_time):
+    member = get_object_or_404(Member, first_name=first_name, last_name=last_name)
+    appearances1 = Appearance.objects.all().filter(date=date, location='in_person')
+    appearances2 = appearances1.exclude(Q(end_time__lt=start_time) | Q(start_time__gt=end_time))
+    appearances = list(appearances2.exclude(member=member))
+    return render(request, 'members/member_tracing.html', {'member': member, 'appearances': appearances})
 
 
 def member_detail(request, first_name, last_name):
@@ -29,7 +39,9 @@ def create_member(request):
     if request.method == "POST":
         form = NewMemberForm(request.POST)
         if form.is_valid():
-            new_member = Member(first_name=str.capitalize(request.POST['first_name']), last_name=str.capitalize(request.POST['last_name']), team_role=capwords((request.POST['team_role'])))
+            new_member = Member(first_name=str.capitalize(request.POST['first_name']),
+                                last_name=str.capitalize(request.POST['last_name']),
+                                team_role=capwords((request.POST['team_role'])))
             new_member.save()
             return HttpResponseRedirect('/')
     else:
@@ -78,7 +90,8 @@ def member_list(request):
 
 
 def members_here(request):
-    return render(request, 'members/members_here.html', {'members': Member.objects.filter(logged_in=True).order_by('first_name')})
+    return render(request, 'members/members_here.html',
+                  {'members': Member.objects.filter(logged_in=True).order_by('first_name')})
 
 
 def create_export(request):
@@ -88,6 +101,7 @@ def create_export(request):
     writer = csv.writer(response)
     writer.writerow(['First', 'Last', 'Total', 'Virtual', 'In Person'])
     for member in Member.objects.order_by('first_name'):
-        writer.writerow([member.first_name, member.last_name, member.num_hours, member.num_hours_virtual, member.num_hours_in_person])
+        writer.writerow([member.first_name, member.last_name, member.num_hours, member.num_hours_virtual,
+                         member.num_hours_in_person])
 
     return response
