@@ -16,7 +16,7 @@
         <h1>Time Tracker</h1>
         <br>
         <h2>{{ member }}</h2><br>
-        <h2> {{ appearance }}</h2>
+        <h2> {{ appearance1 }}</h2>
     </header>
 
     <table>
@@ -27,9 +27,9 @@
                 {% if appearance.location == "virtual" %}
                     <td> {{ appearance}}  <br> {{ appearance.activity }}</td>
                 {% elif appearance.location == "in_person" %}
-                    <td style="color: darkred"> {{ appearance}} <br> {{ appearance.activity }}</td>
+                    <td style="color: darkred"> <a href="{% url 'member_tracing' appearance.member.first_name appearance.member.last_name appearance.date appearance.start_time appearance.end_time%}">{{ appearance}}</a> <br> {{ appearance.activity }}</td>
                 {% endif %}
-                <td> <a href="{% url 'member_detail' member.first_name member.last_name %}">{{ appearance.member }}</a> </td>
+                <td> <a href="{% url 'member_detail' appearance.member.first_name appearance.member.last_name %}">{{ appearance.member }}</a> </td>
             </tr>
         {% endfor %}
     </table>

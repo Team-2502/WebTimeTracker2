@@ -24,7 +24,7 @@ def member_tracing(request, first_name, last_name, date, start_time, end_time):
     appearances1 = Appearance.objects.all().filter(date=date, location='in_person')
     appearances2 = appearances1.exclude(Q(end_time__lt=start_time) | Q(start_time__gt=end_time))
     appearances = list(appearances2.exclude(member=member))
-    return render(request, 'members/member_tracing.html', {'member': member, 'appearance': appearance, 'appearances': appearances})
+    return render(request, 'members/member_tracing.html', {'member': member, 'appearance1': appearance, 'appearances': appearances})
 
 
 def member_detail(request, first_name, last_name):
