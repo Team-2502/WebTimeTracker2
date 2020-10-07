@@ -29,7 +29,7 @@
                 {% if appearance.location == "virtual" %}
                     <td> {{ appearance}}  <br> {{ appearance.activity }}</td>
                 {% elif appearance.location == "in_person" %}
-                    <td style="color: darkred"> {{ appearance}} <br> {{ appearance.activity }}</td>
+                    <td style="color: darkred"> <a style="color: darkred" href="{% url 'member_tracing' member.first_name member.last_name appearance.date appearance.start_time appearance.end_time%}">{{ appearance}}</a> <br> {{ appearance.activity }}</td>
                 {% endif %}
             </tr>
         {% endfor %}

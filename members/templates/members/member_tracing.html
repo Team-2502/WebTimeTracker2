@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{%  static 'members/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla">
+    <link rel="shortcut icon" type="image/png" href="{% static 'members/images/talon-logo.png' %}"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Time Tracker</title>
+
+</head>
+<body style="font-family: 'Karla', serif;">
+    <header>
+        <h1>Team 2502</h1>
+        <h1>Time Tracker</h1>
+        <br>
+        <h2>{{ member }}</h2><br>
+        <h2> {{ appearance1 }}</h2>
+    </header>
+    {% if appearances %}
+        <caption>Others in the Room</caption>
+        <table>
+        <th>Member</th>
+        <th>Times</th>
+            {% for appearance in appearances %}
+                <tr>
+                <td> <a href="{% url 'member_detail' appearance.member.first_name appearance.member.last_name %}">{{ appearance.member }}</a> </td>
+                    <td style="color: darkred"> <a href="{% url 'member_tracing' appearance.member.first_name appearance.member.last_name appearance.date appearance.start_time appearance.end_time%}">{{ appearance}}</a> <br> {{ appearance.activity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h3>No one was in the room with you!</h3>
+    {% endif %}
+</body>
+</html>
