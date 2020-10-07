@@ -19,13 +19,14 @@
         <h2> {{ appearance1 }}</h2>
     </header>
     {% if appearances %}
+        <caption>Others in the Room</caption>
         <table>
-        <th>Times</th>\
         <th>Member</th>
+        <th>Times</th>
             {% for appearance in appearances %}
                 <tr>
+                <td> <a href="{% url 'member_detail' appearance.member.first_name appearance.member.last_name %}">{{ appearance.member }}</a> </td>
                     <td style="color: darkred"> <a href="{% url 'member_tracing' appearance.member.first_name appearance.member.last_name appearance.date appearance.start_time appearance.end_time%}">{{ appearance}}</a> <br> {{ appearance.activity }}</td>
-                    <td> <a href="{% url 'member_detail' appearance.member.first_name appearance.member.last_name %}">{{ appearance.member }}</a> </td>
                 </tr>
             {% endfor %}
         </table>
