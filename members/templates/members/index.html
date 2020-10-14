@@ -8,6 +8,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Time Tracker</title>
+
+    <script type="text/javascript">
+        function enableButton(id)
+        {
+            document.getElementById(id).disabled = false;
+        }
+    </script>
 </head>
 <body style="font-family: 'Karla', serif;">
     {% load static %}
@@ -29,14 +36,14 @@
 
         <form action="{% url 'signed_in'%}" method="post" style="text-align: center">
             {% csrf_token %}
-            <select name="login_select" id="login_select">
+            <select name="login_select" id="login_select" onchange="enableButton('sign_in_button')">
                 <option selected disabled value="default">Choose your name</option>
                 {% for member in members %}
                     <option value={{ member.id }}>{{ member }}</option>
                 {% endfor %}
             </select>
             <br>
-            <input type="submit" value="Sign In">
+            <input disabled id="sign_in_button" type="submit" value="Sign In">
         </form>
 
     {% else %}
@@ -49,7 +56,7 @@
 
         <form action="{% url 'signed_out'%}" method="post" style="text-align: center">
             {% csrf_token %}
-            <select name="logout_select" id="logout_select">
+            <select name="logout_select" id="logout_select" onchange="enableButton('sign_out_button')">
                 <option selected disabled value="default">Choose your name</option>
                 {% for member in members_signed_in %}
                     <option value={{ member.id }}>{{ member }}</option>
@@ -65,7 +72,7 @@
             <br>
             <label for="activity">What did you do?</label>
             <input name="activity" id="activity" type="text" autocomplete="off" maxlength="50"> <br>
-            <input type="submit" value="Sign Out">
+            <input disabled id="sign_out_button" type="submit" value="Sign Out">
         </form>
 
     {% else %}
