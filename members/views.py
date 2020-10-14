@@ -63,8 +63,10 @@ def signed_in(request):
 
 
 def signed_out(request):
-    print(request.POST)
     member = Member.objects.get(id=request.POST['logout_select'])
+    if not member.logged_in:
+        messages.error(request, "%s is already signed out!" % member)
+        return HttpResponseRedirect('/')
     member.logged_in = False
 
     diff = datetime.now() - member.sign_in_time
