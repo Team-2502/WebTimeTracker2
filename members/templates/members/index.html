@@ -30,8 +30,9 @@
         <form action="{% url 'signed_in'%}" method="post" style="text-align: center">
             {% csrf_token %}
             <select name="login_select" id="login_select">
+                <option selected disabled value="default">Choose your name</option>
                 {% for member in members %}
-                <option value={{ member.id }}>{{ member }}</option>
+                    <option value={{ member.id }}>{{ member }}</option>
                 {% endfor %}
             </select>
             <br>
@@ -49,8 +50,9 @@
         <form action="{% url 'signed_out'%}" method="post" style="text-align: center">
             {% csrf_token %}
             <select name="logout_select" id="logout_select">
+                <option selected disabled value="default">Choose your name</option>
                 {% for member in members_signed_in %}
-                <option value={{ member.id }}>{{ member }}</option>
+                    <option value={{ member.id }}>{{ member }}</option>
                 {% endfor %}
             </select>
             <br>
