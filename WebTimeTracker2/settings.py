@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,10 @@ USE_L10N = True
 
 USE_TZ = False
 
+CRONJOBS = [
+    ('* * * * *', 'WebTimeTracker2.cron.sign_all_out', '>> log.txt')
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -118,3 +123,5 @@ try:
     from .local_settings import *
 except:
     pass
+
+
