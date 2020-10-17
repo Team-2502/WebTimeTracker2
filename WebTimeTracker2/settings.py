@@ -108,7 +108,7 @@ USE_L10N = True
 USE_TZ = False
 
 CRONJOBS = [
-    ('* * * * *', 'WebTimeTracker2.cron.sign_all_out', '>> log.txt')
+    ('0 21 * * *', 'WebTimeTracker2.cron.sign_all_out', '>> log.txt')
 ]
 
 
