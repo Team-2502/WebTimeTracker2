@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -105,6 +106,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
+CRONJOBS = [
+    ('0 22 * * *', 'WebTimeTracker2.cron.sign_all_out', '>> /log.txt')
+]
 
 
 # Static files (CSS, JavaScript, Images)
