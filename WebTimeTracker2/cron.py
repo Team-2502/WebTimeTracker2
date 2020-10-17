@@ -2,8 +2,9 @@ from members.models import Member, Appearance
 from decimal import Decimal
 from datetime import datetime
 
+
 def sign_all_out():
-    print("CRONJOB RUNNING BITCHES")
+    print("Signing everyone out")
     members = Member.objects.all().filter(logged_in=True)
     for member in members:
         member.logged_in = False

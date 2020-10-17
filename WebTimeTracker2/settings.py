@@ -108,7 +108,7 @@ USE_L10N = True
 USE_TZ = False
 
 CRONJOBS = [
-    ('0 21 * * *', 'WebTimeTracker2.cron.sign_all_out', '>> log.txt')
+    ('0 22 * * *', 'WebTimeTracker2.cron.sign_all_out', '>> /log.txt')
 ]
 
 
@@ -123,5 +123,3 @@ try:
     from .local_settings import *
 except:
     pass
-
-
