@@ -2,9 +2,11 @@
 
 A second attempt at an online hour tracker for Talon Robotics using Django and Heroku
 
-https://time-tracker-2502.herokuapp.com/members/
+https://time-tracker-2502.herokuapp.com
 
 Features basic sign in and out functionality, ability to see the hours for all team members, see the team members currently signed in, and export all hours to a CSV
+
+![img](https://i.imgur.com/o9XwDkM.png)
 
 ## Development Setup for school issued MacBooks
 * See "Installing Homebrew" [here](https://team-2502.github.io/programming/Homebrew.html)
